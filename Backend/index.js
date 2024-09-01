@@ -14,9 +14,9 @@ var corsOptions = {
 
 app.use(cors(corsOptions));
 
-//require("./app/routes/orders.route")(app);
 require("./app/routes/user.route")(app);
 require("./app/routes/order.route")(app);
+require("./app/routes/menu.route")(app);
 
 // require("./routes/inventory.routes")(app);
 
