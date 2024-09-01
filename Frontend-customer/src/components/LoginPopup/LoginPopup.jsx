@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./LoginPopup.css";
 import { assets } from "../../assets/assets";
 
+import { useNavigate } from "react-router-dom";
+
 const LoginPopup = ({ setShowLogin }) => {
+  const navigate = useNavigate();
   const [currentState, setCurrentState] = useState("Sign up");
   const [formData, setFormData] = useState({
     username: "",
@@ -40,9 +43,8 @@ const LoginPopup = ({ setShowLogin }) => {
       
       if (response.ok) {
         if (currentState === "Sign up") {
-          // Handle successful signup (e.g., show a success message or redirect)
-          console.log("Signup successful:", result);
-          setShowLogin(false); // Close the popup or redirect user
+          // Redirect to login page after successful signup
+          setCurrentState("Login");
         } else {
           // Handle successful login
           localStorage.setItem("accessToken", result.accessToken);
@@ -102,7 +104,6 @@ const LoginPopup = ({ setShowLogin }) => {
                 value={formData.contactNumber}
                 onChange={handleInputChange}
               />
-              
             </>
           )}
           <input

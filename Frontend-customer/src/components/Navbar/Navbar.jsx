@@ -1,14 +1,27 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { StoreContext } from "../../context/StoreContext";
+import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import { assets } from "../../assets/assets";
-import { Link } from "react-router-dom";
 
 const Navbar = ({ setShowLogin }) => {
   const { getTotalQuantity } = useContext(StoreContext);
   const totalQuantity = getTotalQuantity();
-
   const [menu, setMenu] = useState("home");
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // State for login status
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if user is logged in
+    const token = localStorage.getItem("accessToken");
+    setIsLoggedIn(!!token);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    setIsLoggedIn(false);
+    navigate("/"); // Redirect to home or any other page after logout
+  };
 
   return (
     <div className="navbar">
@@ -30,7 +43,6 @@ const Navbar = ({ setShowLogin }) => {
         >
           Menu
         </a>
-        
         <a
           href="#footer"
           onClick={() => setMenu("contact-us")}
@@ -41,6 +53,7 @@ const Navbar = ({ setShowLogin }) => {
       </ul>
       <div className="navbar-right">
         <img src={assets.search_icon} alt="search_icon" />
+        <Link to="/userOrders">My Orders</Link>
         <div className="navbar-basket-icon">
           <Link to="/cart">
             <img src={assets.basket_icon} alt="basket_icon" />
@@ -49,7 +62,11 @@ const Navbar = ({ setShowLogin }) => {
             <p>{totalQuantity}</p>
           </div>
         </div>
-        <button onClick={() => setShowLogin(true)}>Sign in</button>
+        {isLoggedIn ? (
+          <button onClick={handleLogout}>Logout</button>
+        ) : (
+          <button onClick={() => setShowLogin(true)}>Sign in</button>
+        )}
       </div>
     </div>
   );
