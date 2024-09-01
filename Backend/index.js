@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 
 const app = express();
 app.use(bodyParser.json());
+require('dotenv').config();
+
 
 
 var corsOptions = {
@@ -11,8 +13,12 @@ var corsOptions = {
 };
 
 app.use(cors(corsOptions));
-require("./app/routes/orders.route")(app);
-require("./routes/inventory.routes")(app);
+
+//require("./app/routes/orders.route")(app);
+require("./app/routes/user.route")(app);
+require("./app/routes/order.route")(app);
+
+// require("./routes/inventory.routes")(app);
 
 
 app.use(express.urlencoded({ extended: true }));

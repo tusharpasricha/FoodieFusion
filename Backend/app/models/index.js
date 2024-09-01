@@ -21,6 +21,9 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.orderReceives = require("./orders.model.js")(sequelize, Sequelize);
+db.user = require("./users.model.js")(sequelize, Sequelize);
+db.order = require("./order.model.js")(sequelize, Sequelize);
+db.feedback = require("./feedback.model.js")(sequelize, Sequelize);
 
 db.user.hasMany(db.order, { as: "orders" });
 db.order.belongsTo(db.user, {

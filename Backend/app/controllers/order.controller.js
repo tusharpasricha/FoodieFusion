@@ -1,5 +1,5 @@
 const db = require("../models");
-const Order = db.Orders;
+const Order = db.order;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
