@@ -33,7 +33,12 @@ exports.create = (req, res) => {
       });
     });
 };
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI1MTY1NjI5LCJleHAiOjE3MjUyNTIwMjl9.sEI6u2B_D69yUYjxQbSAc1PrieI1mmE3aw2uWhNuCN0
 
+// {
+//   "email": "testuser@example.com",
+//   "password": "password123"
+// }
 exports.login = (req, res) => {
   if (!req.body.email || !req.body.password) {
     return res.status(400).send({
