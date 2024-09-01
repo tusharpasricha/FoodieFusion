@@ -1,11 +1,11 @@
-module.exports = app => {
-    const orders = require("../controllers/order.controller.js");
+module.exports = (app) => {
+  const orders = require("../controllers/order.controller.js");
 
-    var router = require("express").Router();
+  var router = require("express").Router();
 
-    router.post("/", orders.create);
+  router.post("/", orders.create);
 
-    router.get("/", orders.findAll);
+  router.get("/", orders.findAll);
 
-    app.use('/api/orders', router);
+  app.use("/api/orders", router);
 };

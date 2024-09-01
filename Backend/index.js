@@ -1,15 +1,13 @@
 const express = require("express");
 const cors = require("cors");
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 
 const app = express();
 app.use(bodyParser.json());
-require('dotenv').config();
-
-
+require("dotenv").config();
 
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: "http://localhost:8081",
 };
 
 app.use(cors(corsOptions));
@@ -17,22 +15,20 @@ app.use(cors(corsOptions));
 require("./app/routes/user.route")(app);
 require("./app/routes/order.route")(app);
 require("./app/routes/menu.route")(app);
-
-// require("./routes/inventory.routes")(app);
-
+require("./app/routes/inventory.route")(app);
+require("./app/routes/feedback.route")(app);
 
 app.use(express.urlencoded({ extended: true }));
 
 const db = require("./app/models");
-db.sequelize.sync()
+db.sequelize
+  .sync()
   .then(() => {
     console.log("Synced db.");
   })
   .catch((err) => {
     console.log("Failed to sync db: " + err.message);
   });
-
-
 
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to Foodie Fusion." });

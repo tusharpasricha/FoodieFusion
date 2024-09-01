@@ -1,11 +1,11 @@
-module.exports = app => {
-    const menuItems = require("../controllers/menu.controller.js");
+module.exports = (app) => {
+  const menuItems = require("../controllers/menu.controller.js");
 
-    var router = require("express").Router();
+  var router = require("express").Router();
 
-    router.post("/", menuItems.create);
+  router.post("/", menuItems.create);
 
-    router.get("/", menuItems.findAll);
+  router.get("/", menuItems.findAll);
 
-    app.use('/api/menuitems', router);
+  app.use("/api/menuitems", router);
 };

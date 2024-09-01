@@ -10,12 +10,11 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     max: dbConfig.pool.max,
     min: dbConfig.pool.min,
     acquire: dbConfig.pool.acquire,
-    idle: dbConfig.pool.idle
-  }
+    idle: dbConfig.pool.idle,
+  },
 });
 
 const db = {};
-
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
@@ -25,25 +24,25 @@ db.user = require("./users.model.js")(sequelize, Sequelize);
 db.order = require("./order.model.js")(sequelize, Sequelize);
 db.feedback = require("./feedback.model.js")(sequelize, Sequelize);
 db.menuItem = require("./menu.model.js")(sequelize, Sequelize);
-
+db.inventoryItem = require("./inventory.model.js")(sequelize, Sequelize);
+db.feedback = require("./feedback.model.js")(sequelize, Sequelize);
 
 db.user.hasMany(db.order, { as: "orders" });
 db.order.belongsTo(db.user, {
   foreignKey: "userId",
-  as: "user"
+  as: "user",
 });
 
 db.user.hasMany(db.feedback, { as: "feedbacks" });
 db.feedback.belongsTo(db.user, {
   foreignKey: "userId",
-  as: "user"
+  as: "user",
 });
 
 db.order.hasMany(db.feedback, { as: "feedbacks" });
 db.feedback.belongsTo(db.order, {
   foreignKey: "orderId",
-  as: "order"
+  as: "order",
 });
-
 
 module.exports = db;
